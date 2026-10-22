@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Panel Estudiante</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#0b0b14;color:white;padding:20px}
+.card{background:#13132a;border:1px solid #2a2650;border-radius:14px;padding:18px;margin-bottom:16px;max-width:900px;margin:0 auto 16px}
+table{width:100%;border-collapse:collapse;font-size:13px} th{color:#6b6a8a;text-align:left;padding:8px;border-bottom:1px solid #2a2650} td{padding:10px;border-bottom:1px solid #1e1e32}
+input,select{background:#0f0f1e;border:1px solid #2a2650;padding:11px;border-radius:8px;color:white}
+button{background:#7c5cff;border:none;padding:11px 16px;border-radius:8px;color:white;cursor:pointer;font-weight:600}
+.badge{padding:4px 8px;border-radius:6px;font-size:11px} .pendiente{background:#facc15;color:black} .aprobado{background:#22c55e} .rechazado{background:#ef4444}
+</style></head><body>
+<div class="card" style="display:flex;justify-content:space-between"><h3>🎓 Estudiante: {{correo}}</h3><a href="/logout" style="color:#7c5cff;text-decoration:none">Salir</a></div>
+<div class="card"><h3>📦 Dispositivos Disponibles - Solo Vista</h3>
+<table><tr><th>Nombre</th><th>Serie</th><th>Tipo</th><th>Disponible</th></tr>
+{% for d in dispositivos %}<tr><td>{{d.nombre}}</td><td>{{d.serie}}</td><td>{{d.tipo}}</td><td>{{d.disponible}}</td></tr>{% endfor %}</table></div>
+<div class="card"><h3>📝 Registrar Solicitud</h3><p style="font-size:11px;color:#7a7699">nombre, universidad, equipo, motivo</p>
+<form method="POST" action="/solicitar" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+<input name="nombre" placeholder="Nombre completo" required>
+<input name="universidad" placeholder="Universidad" required>
+<select name="dispositivo" required>{% for d in dispositivos %}<option value="{{d.nombre}}">{{d.nombre}}</option>{% endfor %}</select>
+<input name="motivo" placeholder="Motivo" required>
+<button style="grid-column:span 2">Solicitar Préstamo</button>
+</form></div>
+<div class="card"><h3>📋 Mis Solicitudes</h3>
+{% for s in solicitudes %}<div style="padding:10px 0;border-bottom:1px solid #1e1e32;display:flex;justify-content:space-between"><span><b>{{s.nombre}}</b> - {{s.universidad}} - {{s.dispositivo}} - {{s.motivo}}</span><span class="badge {{s.estado|lower}}">{{s.estado}}</span></div>{% else %}<p style="color:#555">No hay solicitudes</p>{% endfor %}</div>
+</body></html>

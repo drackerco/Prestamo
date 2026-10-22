@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#080610;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bg{position:absolute;inset:0;background:radial-gradient(600px at 20% 50%,rgba(139,92,246,0.25),transparent)}
+.container{position:relative;z-index:2;width:95%;max-width:1150px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.left{flex:1.1;height:520px;position:relative}
+.laptop{position:absolute;top:0;left:30px;width:260px;height:160px;background:linear-gradient(135deg,#1a1040,#7c5cff);border-radius:12px;box-shadow:0 0 50px rgba(124,92,255,.6);display:flex;align-items:center;justify-content:center;font-size:60px}
+.tablet{position:absolute;top:190px;left:40px;width:260px;height:120px;background:linear-gradient(135deg,#1a1040,#7c5cff);border-radius:14px}
+.phone{position:absolute;top:340px;left:60px;width:150px;height:70px;background:linear-gradient(135deg,#1a1040,#7c5cff);border-radius:12px}
+.right{flex:0 0 420px;background:#121027;border:1px solid #2d275f;border-radius:20px;padding:32px}
+.right h1{text-align:center;color:white;font-size:32px;font-weight:800} .sub{text-align:center;color:#8b7aff;margin-bottom:20px;font-weight:600}
+label{font-size:13px;color:#a89fff;display:block;margin:14px 0 6px;font-weight:600}
+.input{width:100%;background:#0e0b24;border:1px solid #2d275f;border-radius:10px;padding:13px 14px;display:flex;gap:10px}
+.input input{flex:1;background:transparent;border:none;outline:none;color:white}
+.rols{display:flex;gap:8px} .rol-btn{flex:1;padding:10px;border-radius:10px;border:1px solid #2d275f;background:#0e0b24;color:#7a7699;cursor:pointer;text-align:center;font-size:13px}
+.rol-btn.active{background:#7c5cff;color:white;border-color:#7c5cff}
+.btn{width:100%;background:#8b6cff;border:none;padding:13px;border-radius:12px;color:white;font-weight:700;margin-top:22px;cursor:pointer}
+#caja-clave{display:none}
+</style></head><body>
+<div class="bg"></div>
+<div class="container">
+<div class="left"><div class="laptop">💻</div><div class="tablet"></div><div class="phone"></div></div>
+<div class="right">
+<h1>Iniciar Sesión</h1><div class="sub">Institución Educativa</div>
+<form method="POST">
+<label>Correo institucional</label>
+<div class="input"><span>✉️</span><input name="correo" type="email" placeholder="correo@institucion.edu" required></div>
+<div id="caja-clave">
+<label>Contraseña Administrador</label>
+<div class="input"><span>🔒</span><input id="pwd" name="password" type="password" placeholder="CLAVE"><span style="cursor:pointer" onclick="pwd.type=pwd.type=='password'?'text':'password'">👁️</span></div>
+</div>
+<label>Rol:</label><input type="hidden" name="rol" id="rol" value="Estudiante">
+<div class="rols"><div class="rol-btn active" id="btn-Estudiante" onclick="setRol('Estudiante')">🎓 Estudiante</div><div class="rol-btn" id="btn-Administrador" onclick="setRol('Administrador')">🛡️ Administrador</div></div>
+<button class="btn">Ingresar</button>
+</form>
+</div></div>
+<script>
+function setRol(r){
+ document.querySelectorAll('.rol-btn').forEach(b=>b.classList.remove('active'));
+ document.getElementById('btn-'+r).classList.add('active');
+ document.getElementById('rol').value=r;
+ document.getElementById('caja-clave').style.display=r==='Administrador'?'block':'none';
+ document.getElementById('pwd').required=r==='Administrador';
+}
+</script></body></html>
